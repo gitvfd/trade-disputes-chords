@@ -3,11 +3,11 @@ font-family: 'Noto Sans', sans-serif;*/
 body {
 		  overflow: hidden;
 		  margin: 0;
-		  font-size: 14px;
+		  font-size: 13px;
 		  font-family: 'Noto Sans', sans-serif;
-		  fill:#333333;
-		  color:#333333;
-      text-align: center;
+		  fill:#474747;
+		  color:#474747;
+      	text-align: center;
 		  /*font-family: Oswald;*/
 		  /*font-family: "Helvetica Neue", Helvetica;*/
 		}
@@ -98,8 +98,8 @@ body {
 		
 		#source{
 		display: block;
-		  font-family: 'Noto Sans', sans-serif;
-		  font-size: 14px;
+			font-family: 'Noto Serif', serif;
+		  font-size: 12px;
 		  font-weight: 100;
 		  color: #6B6B6B;
 		  text-align: start;
@@ -117,11 +117,12 @@ body {
 		}
 
 		.titles{
-		  font-size: 13px;
+		  font-size: 10px;
 		}
 
-		.explanation{font-family: 'Noto Serif', serif;
-		  font-size: 24px;
+		.explanation{
+			font-family: 'Noto Serif', serif;
+		  font-size: 18px;
 		  font-weight: 100;
 		  text-align: center;
 		}

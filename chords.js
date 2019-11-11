@@ -50,9 +50,9 @@ var fill = d3.scale.ordinal()
 /*//////////////////////////////////////////////////////////
 /////////////// Initiate Chord Diagram /////////////////////
 //////////////////////////////////////////////////////////*/
-var margin = {top: 30, right: 25, bottom: 30, left: 25},
-    width =800 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom,
+var margin = {top: 30, right: 25, bottom: 10, left: 25},
+    width =700 - margin.left - margin.right,
+    height = 650 - margin.top - margin.bottom,
     innerRadius = Math.min(width, height) * .39,
     outerRadius = innerRadius * 1.04;
 
