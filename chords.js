@@ -438,7 +438,6 @@ function Draw4(){
 	/*Show only the Samsung Nokia chord*/
 	chords.transition().duration(2000)
 		.attr("opacity", function(d, i) { 
-            console.log(d)
 			if(d.source.index == 2 && d.target.index == 0) 
 				{return opacityValueBase;}
 			else {return 0;}
@@ -712,7 +711,7 @@ function fade(opacity) {
 };/*fade*/
 
 /*Returns an array of tick angles and labels, given a group*/
-function groupTicks(d) {console.log(d)
+function groupTicks(d) {
     var k = (d.endAngle - d.startAngle)/ (d.value );
     return d3.range(0, d.value, 1).map(function(v, i) {
     return {
