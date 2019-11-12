@@ -338,7 +338,7 @@ function Draw3(){
 	/*First disable click event on clicker button*/
 	stopClicker();
 
-    var arcDelay = [0, 0, 5, 5, 5, 10, 10, 15, 15, 15, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 25, 25, 25, 25, 25, 25, 25];
+	var arcDelay = [0, 0, 3, 3, 3, 6, 6, 9, 9, 9, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 15, 15, 15, 15, 15, 15, 15];
 
 
     /*Show and run the progressBar*/
@@ -391,7 +391,7 @@ function Draw3(){
         loc = 1 / 2, delayDisappear = (arcDelay[22] - 1), delayAppear = arcDelay[22]);		
 	/*Chord intro*/
 	changeTopText(newText = "This circle shows all the countries involve in disputes",
-		loc = 1/2, delayDisappear = (arcDelay[22]+2), delayAppear = arcDelay[22]+3, finalText = true);					
+		loc = 1/2, delayDisappear = (arcDelay[22]+1), delayAppear = arcDelay[22]+2, finalText = true);					
  
 	
 
@@ -552,10 +552,10 @@ function Draw7(){
 	runProgressBar(time=700*11);	
 	
 	/*Samsung and Nokia text*/
-	changeTopText(newText = "As the EU has initiated more disputes against the USA than the USA against the EU,",
-		loc = 0, delayDisappear = 0, delayAppear = 1);
-	changeTopText(newText = "the chord is the color of the EU",
-		loc = 0, delayDisappear = 6, delayAppear = 7, finalText = true);
+	changeTopText(newText = "As the EU has initiated more disputes against the USA than the USA against the EU, the chord is the color of the EU",
+		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
+	/**changeTopText(newText = "",
+		loc = 0, delayDisappear = 6, delayAppear = 7, finalText = true);**/
 		
 	/*Stop the colour changing on the Nokia side*/
 	d3.selectAll(".NokiaToSamsungArc")
@@ -625,11 +625,12 @@ function Draw9(){
 	/*Show and run the progressBar*/
 	runProgressBar(time=700*11);	
 
-	changeTopText(newText = "As most of the chord connected to the USA are not their color ",
-		loc = 3/2, delayDisappear = 0, delayAppear = 1, finalText = false, xloc=-80, w=210);
-	changeTopText(newText = "we can conclude that the USA issue less disputes against other countries " + 
+	changeTopText(newText = "Most of the chord connected to the USA are not their color, highlighting the fact that they issue less disputes against other countries " + 
+							"than they receive ",
+		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
+	/**changeTopText(newText = "we can conclude that the USA issue less disputes against other countries " + 
 							"than they receive",
-		loc = 3/2, delayDisappear = 9, delayAppear = 10, finalText = true, xloc=-80, w=210);
+		loc = 3/2, delayDisappear = 9, delayAppear = 10, finalText = true, xloc=-80, w=210);**/
 
 };/*Draw10*/
   
