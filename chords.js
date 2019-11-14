@@ -52,7 +52,7 @@ var fill = d3.scale.ordinal()
 //////////////////////////////////////////////////////////*/
 var margin = {top: 30, right: 25, bottom: 10, left: 25},
     width =700 - margin.left - margin.right,
-    height = 650 - margin.top - margin.bottom,
+    height = 500 - margin.top - margin.bottom,
     innerRadius = Math.min(width, height) * .39,
     outerRadius = innerRadius * 1.04;
 
@@ -196,8 +196,8 @@ var middleTextTop = textCenter.append("text")
 	.attr("y", -24*10/2 + "px")
 	.attr("dy", "1em")
 	.attr("opacity", 1)
-    .text("The data presented in this infographic are outstanding trade complaints over the last years which include tariff, countervailing or anti-dumping measures ")
-	.call(wrap, 350);
+    .text("This infographic presents outstanding trade complaints issued in the last two years. It include tariff, countervailing or anti-dumping measures.")
+	.call(wrap, 225);
 
 /*Starting text middle bottom*/
 var middleTextBottom = textCenter.append("text")
@@ -207,8 +207,8 @@ var middleTextBottom = textCenter.append("text")
 	.attr("y", 50*3/2 + "px")
 	.attr("dy", "1em")
 	.attr('opacity', 1)
-    .text("On the final view, mouse over the arcs to see more details")
-    .call(wrap, 350);
+    .text("Mouse over the arcs to get more details")
+    .call(wrap, 225);
 
 
 /*//////////////////////////////////////////////////////////
@@ -216,7 +216,7 @@ var middleTextBottom = textCenter.append("text")
 //////////////////////////////////////////////////////////*/
 
 var counter = 1,
-	buttonTexts = ["->", "Next", "->", "Next", "->", "Next", "->","Next","Finish"],
+	buttonTexts = ["->", "Next", "->", "Next", "->", "Finish", "->","Next","Finish"],
 	opacityValueBase = 0.8,
 	opacityValue = 0.4;
 
@@ -232,16 +232,16 @@ d3.select("#skip")
 d3.select("#clicker")      
 	.on("click", function(e){
 	
-		if(counter == 1) Draw1(); // intro explanation
-		else if(counter == 2) Draw2(); // OK -- drawing one line ie US
-        else if (counter == 3) Draw3(); // OK -- Drawing all the other lines
-        else if (counter == 4) Draw4(); // OK -- highlighting one arc
-        else if (counter == 5) Draw5(); // OK -- explaining one end of the highlighted arc
-        else if (counter == 6) Draw6(); // OK -- explaining second end of the highlighted arc
-        else if (counter == 7) Draw7(); // OK -- overall arc explanation
-        else if (counter == 8) Draw8(); // OK -- all the chords for one segement
-        else if (counter == 9) Draw9(); // OK -- showing that apple is leader for all its connection
-         else if (counter == 10) finalChord(); // OK -- all
+		if(counter == 1) Draw2(); // intro explanation
+		else if(counter == 2) Draw3(); // OK -- drawing one line ie US
+        else if (counter == 3) Draw4(); // OK -- Drawing all the other lines
+        else if (counter == 4) Draw5(); // OK -- highlighting one arc
+        else if (counter == 5) Draw6(); // OK -- explaining one end of the highlighted arc
+        else if (counter == 6) Draw8(); // OK -- explaining second end of the highlighted arc
+		else if (counter == 7) finalChord(); // OK -- overall arc explanation
+		//else if (counter == 8) finalChord(); // OK -- all the chords for one segement
+		//else if (counter == 9) finalChord(); // OK -- showing that apple is leader for all its connection
+         //else if (counter == 10) finalChord(); // OK -- all
 		
 		counter = counter + 1;
 	});
@@ -284,6 +284,11 @@ function Draw1(){
 //////////////////////////////////////////////////////////*/
 function Draw2(){ 
 
+	//Remove arcs again
+	d3.selectAll(".arc")
+		.transition().delay(1 * 700).duration(700)
+		.style("opacity", 0)
+		.each("end", function () { d3.selectAll(".arc").remove(); });
 	/*First disable click event on clicker button*/
 	stopClicker();
 	
@@ -338,7 +343,7 @@ function Draw3(){
 	/*First disable click event on clicker button*/
 	stopClicker();
 
-	var arcDelay = [0, 0, 3, 3, 3, 6, 6, 9, 9, 9, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 15, 15, 15, 15, 15, 15, 15];
+	var arcDelay = [0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 6, 6, 6, 6, 6, 6, 6];
 
 
     /*Show and run the progressBar*/
@@ -375,23 +380,12 @@ function Draw3(){
 	changeTopText(newText = "China has initiated 5 disputes",
         loc = 1/2, delayDisappear = 0, delayAppear = 1);
 	/*4 disputes*/
-	changeTopText(newText = "The EU, Russia and Ukraine have initiated 4 each",
-		loc = 1/2, delayDisappear = arcDelay[2]-1, delayAppear = arcDelay[2]);
-	/*3 disputes*/
-	changeTopText(newText = "Canada and Japan have initiated 3 each",
-		loc = 1/2, delayDisappear = (arcDelay[5]-1), delayAppear = arcDelay[5]);
-	/*2 disputes*/
-	changeTopText(newText = "Korea, Tunisia and Turkey have initiated 2 each",
-		loc = 1/2, delayDisappear = arcDelay[7]-1, delayAppear = (arcDelay[7]));		
-	/*1 disputes%*/
-	changeTopText(newText = "12 countries have initiated just one dispute",
-        loc = 1/2, delayDisappear = (arcDelay[10]-1), delayAppear = arcDelay[10]);	
+	changeTopText(newText = "Other countries have initiated between one and four disputes",
+		loc = 1/2, delayDisappear = arcDelay[3]-1, delayAppear = arcDelay[3]);
     /*0 dispute%*/
     changeTopText(newText = "8 countries are just responding to disputes but haven't issued any",
-        loc = 1 / 2, delayDisappear = (arcDelay[22] - 1), delayAppear = arcDelay[22]);		
-	/*Chord intro*/
-	changeTopText(newText = "This circle shows all the countries involve in disputes",
-		loc = 1/2, delayDisappear = (arcDelay[22]+1), delayAppear = arcDelay[22]+2, finalText = true);					
+		loc = 1 / 2, delayDisappear = (arcDelay[22] - 1), delayAppear = arcDelay[22], finalText = true);		
+	/*Chord intro*/			
  
 	
 
@@ -502,7 +496,7 @@ function Draw6(){
 	runProgressBar(time=700*11);	
 	
 	/*Samsung and Nokia text*/
-	changeTopText(newText = "The United States of America have only initiated one dispute against the EU",
+	changeTopText(newText = "The United States of America have only initiated one dispute. As the difference is in favor of the EU, the chord is the EU color.",
         loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 		
 	/*Stop the color changing on the Samsung side*/
