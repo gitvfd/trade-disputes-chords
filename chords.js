@@ -343,7 +343,7 @@ function Draw3(){
 	/*First disable click event on clicker button*/
 	stopClicker();
 
-	var arcDelay = [0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 6, 6, 6, 6, 6, 6, 6];
+	var arcDelay = [0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8];
 
 
     /*Show and run the progressBar*/
@@ -493,7 +493,7 @@ function Draw6(){
 	/*First disable click event on clicker button*/
 	stopClicker();
 	/*Show and run the progressBar*/
-	runProgressBar(time=700*11);	
+	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia text*/
 	changeTopText(newText = "The United States of America have only initiated one dispute. As the difference is in favor of the EU, the chord is the EU color.",
@@ -542,7 +542,7 @@ function Draw7(){
 	/*First disable click event on clicker button*/
 	stopClicker();
 	/*Show and run the progressBar*/
-	runProgressBar(time=700*11);	
+	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia text*/
 	changeTopText(newText = "As the EU has initiated more disputes against the USA than the USA against the EU, the chord is the color of the EU",
@@ -616,7 +616,7 @@ function Draw9(){
 	/*First disable click event on clicker button*/
 	stopClicker();
 	/*Show and run the progressBar*/
-	runProgressBar(time=700*11);	
+	runProgressBar(time=700*2);	
 
 	changeTopText(newText = "Most of the chord connected to the USA are not their color, highlighting the fact that they issue less disputes against other countries " + 
 							"than they receive ",
@@ -668,7 +668,31 @@ function finalChord() {
 	/*Make mouse over and out possible*/
 	d3.selectAll(".group")
 		.on("mouseover", fade(.02))
-		.on("mouseout", fade(.80));
+
+		.on("mousemove", function () {
+
+			//Change titles
+			d3.select("#chart-tooltip .tooltip-title").html(this.className.baseVal.slice(6, this.className.baseVal.length))
+
+			//Place & show the tooltip
+			d3.select("#chart-tooltip")
+				.style("top", (event.clientY - 5 + "px"))
+				.style("left", (event.clientX + 5 + "px"))
+				.style("opacity", 1)
+
+
+		})
+		.on("mouseout",function(){
+			d3.select("#chart-tooltip")
+				.style("top", (event.clientY - 5 + "px"))
+				.style("left", (event.clientX + 5 + "px"))
+				.style("opacity", 0);
+
+			svg.selectAll("path.chord")
+				.transition()
+				.style("stroke-opacity", 0.8)
+				.style("fill-opacity", 0.8);
+		} );
 		
 	/*Show all chords*/
 	chords.transition().duration(1000)
