@@ -5,7 +5,7 @@
 var NameProvider = ["United States", "China", "EU", "Russia", "Ukraine", "Canada", "Japan", "Korea", "Tunisia", "Turkey", "Argentina", "Brazil", "Chinese Taipei", "India", "Indonesia", "Mexico", "Norway", "Switzerland", "Thailand", "UAE", "Venezuela", "Viet Nam", "Armenia", "Australia", "Costa Rica", "Kazakhstan", "Kyrgyz Rep.", "Morocco", "Pakistan", "Peru"];
 	
 var matrix = [
-    [0, 2, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [2, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -147,12 +147,12 @@ g.append("svg:text")
 /*//////////////////////////////////////////////////////////
 //////////////// Initiate inner chords /////////////////////
 //////////////////////////////////////////////////////////*/
-
+ 
 var chords = svg.selectAll("path.chord")
 	.data(chord.chords)
 	.enter().append("svg:path")
 	.attr("class", "chord")
-	.style("stroke", function(d) { return d3.rgb(fill(d.source.index)).darker(); })
+	.style("stroke", function (d) { return d3.rgb(fill(d.source.index)).darker(); })
 	.style("fill", function(d) { return fill(d.source.index); })
 	.attr("d", d3.svg.chord().radius(innerRadius))
 	.attr('opacity', 0);
@@ -193,10 +193,10 @@ var middleTextTop = textCenter.append("text")
 	.attr("class", "explanation")
 	.attr("text-anchor", "middle")
 	.attr("x", 0 + "px")
-	.attr("y", -24*10/2 + "px")
+	.attr("y", -12*10/2 + "px")
 	.attr("dy", "1em")
 	.attr("opacity", 1)
-    .text("This infographic presents outstanding trade complaints issued in the last two years. It include tariff, countervailing or anti-dumping measures.")
+	.text("This infographic presents a breakdown of outstanding tariff and trade restriction complaints to the WTO since 2017.")
 	.call(wrap, 225);
 
 /*Starting text middle bottom*/
@@ -207,7 +207,7 @@ var middleTextBottom = textCenter.append("text")
 	.attr("y", 50*3/2 + "px")
 	.attr("dy", "1em")
 	.attr('opacity', 1)
-    .text("Mouse over the arcs to get more details")
+    .text("")
     .call(wrap, 225);
 
 
@@ -216,7 +216,7 @@ var middleTextBottom = textCenter.append("text")
 //////////////////////////////////////////////////////////*/
 
 var counter = 1,
-	buttonTexts = ["->", "Next", "->", "Next", "->", "Finish", "->","Next","Finish"],
+	buttonTexts = ["->", "Next", "->", "Next", "->", "Finish"],
 	opacityValueBase = 0.8,
 	opacityValue = 0.4;
 
@@ -302,7 +302,7 @@ function Draw2(){
 	  .transition().duration(700)
 	  .attr("d", arc)
 	  .attrTween("d", function(d) {
-		if(d.index == 0) {
+		  if (d.index == 0 || d.index == 1) {
 		   var i = d3.interpolate(d.startAngle, d.endAngle);
 		   return function(t) {
 			   d.endAngle = i(t);
@@ -314,20 +314,20 @@ function Draw2(){
 	/*Show the tick around the Apple arc*/
 	d3.selectAll("g.group").selectAll("line")
 		.transition().delay(700).duration(1000)
-		.style("stroke", function(d, i, j) {return j ? 0 : "#000"; });
+		.style("stroke", function (d, i, j) { ; return (j == 0 || j == 1) ? "#000"  : 0; });
 
 	/*Add the labels for the %'s at Apple*/
 	d3.selectAll("g.group").selectAll(".tickLabels")
 		.transition().delay(700).duration(2000)
-		.attr("opacity", function(d, i, j) {return j ? 0 : 1; });
+		.attr("opacity", function (d, i, j) { return (j == 0 || j == 1)  ? 1  : 0; });
 
 	/*Show the Apple name*/
 	d3.selectAll(".titles")
 	  .transition().duration(2000)
-	  .attr("opacity", function(d, i) {return d.index ? 0 : 1; });
+		.attr("opacity", function (d, i) { return (d.index == 0 || d.index == 1) ? 1  : 0; });
 	  
 	/*Switch  text*/
-    changeTopText(newText = "The United States of America have initiated the more disputes - 6 since January 2017",
+    changeTopText(newText = "The United States is involved in the most disputes, followed by China.",
 	loc = 1/2, delayDisappear = 0, delayAppear = 1, finalText = true);
 	
     changeBottomText(newText = "",
@@ -343,7 +343,7 @@ function Draw3(){
 	/*First disable click event on clicker button*/
 	stopClicker();
 
-	var arcDelay = [0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8];
+	var arcDelay = [ 0, 0, 0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0, 5, 5, 5, 5, 5, 5, 5, 5];
 
 
     /*Show and run the progressBar*/
@@ -353,7 +353,7 @@ function Draw3(){
    svg.selectAll("g.group").select("path")
 	.transition().delay(function(d, i) { return 700*arcDelay[i];}).duration(1000)
 	.attrTween("d", function(d) {
-		if(d.index != 0) {
+		if (d.index != 0 && d.index != 1) {
 		   var i = d3.interpolate(d.startAngle, d.endAngle);
 		   return function(t) {
 			   d.endAngle = i(t);
@@ -376,15 +376,15 @@ function Draw3(){
 	.selectAll("text").style("opacity", 1);
 
 	/*Change the text of the top section inside the circle accordingly*/
-	/*5 disputes*/
-	changeTopText(newText = "China has initiated 5 disputes",
+	/*between 1 and 5 disputes*/
+	changeTopText(newText = "Other countries have initiated between one and four disputes.",
         loc = 1/2, delayDisappear = 0, delayAppear = 1);
-	/*4 disputes*/
-	changeTopText(newText = "Other countries have initiated between one and four disputes",
-		loc = 1/2, delayDisappear = arcDelay[3]-1, delayAppear = arcDelay[3]);
+	/*0 disputes*/
+	changeTopText(newText = "Eight countries are just responding to disputes but have not issued any.",
+		loc = 1 / 2, delayDisappear = (arcDelay[22] - 1), delayAppear = arcDelay[22], finalText = true);
     /*0 dispute%*/
-    changeTopText(newText = "8 countries are just responding to disputes but haven't issued any",
-		loc = 1 / 2, delayDisappear = (arcDelay[22] - 1), delayAppear = arcDelay[22], finalText = true);		
+    //changeTopText(newText = "8 countries are just responding to disputes but haven't issued any",
+	//	loc = 1 / 2, delayDisappear = (arcDelay[22] - 1), delayAppear = arcDelay[22], finalText = true);		
 	/*Chord intro*/			
  
 	
@@ -402,7 +402,7 @@ function Draw4(){
 	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia intro text*/
-	changeTopText(newText = "Let's focus at the disputes between the United States of America and The European Union",
+	changeTopText(newText = "Let's focus on the disputes between The United States and The European Union.",
 		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 		
 	/*Bottom text disappear*/
@@ -413,7 +413,7 @@ function Draw4(){
     svg.selectAll("g.group").select("path")
 		.transition().duration(1000)
 		.style("opacity", function(d) {
-			if(d.index != 4 && d.index != 5) {return opacityValue;}
+			if(d.index != 0 && d.index != 2) {return opacityValue;}
 		});		
 	
 	/*Make the other strokes less visible*/
@@ -448,7 +448,7 @@ function Draw5(){
 	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia text*/
-	changeTopText(newText = "Looking at the European Union's arc, we see it has initiated 2 disputes against the United States of America",
+	changeTopText(newText = "Looking at the EU's arc, we see it has initiated 2 disputes with The US.",
 		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 	
     /*Make the non Samsung & Nokia arcs less visible*/
@@ -460,8 +460,8 @@ function Draw5(){
 	var arcSamsung = d3.svg.arc()
 				.innerRadius(innerRadius)
 				.outerRadius(outerRadius)
-                .startAngle(1.2696816676377756)
-                .endAngle(1.4859874253900984);
+				.startAngle(1.1850402841694754)
+				.endAngle(1.4060483410033704);
 				
 	svg.append("path")
 		.attr("class","SamsungToNokiaArc")
@@ -496,7 +496,7 @@ function Draw6(){
 	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia text*/
-	changeTopText(newText = "The United States of America have only initiated one dispute. As the difference is in favor of the EU, the chord is the EU color.",
+	changeTopText(newText = "We also see that the US has only initiated one dispute with the EU. As the number of initiated disputes is greater for the EU, the arc takes the EU color.",
         loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 		
 	/*Stop the color changing on the Samsung side*/
@@ -509,8 +509,8 @@ function Draw6(){
     var arcSamsung = d3.svg.arc()
         .innerRadius(innerRadius)
         .outerRadius(outerRadius)
-        .startAngle(0.2163057577523228)
-        .endAngle(0.3244586366284842);
+		.startAngle(0.11050402841694752)
+		.endAngle(0.22100805683389504);
 
     svg.append("path")
         .attr("class", "NokiaToSamsungArc")
@@ -569,9 +569,8 @@ function Draw8(){
 	/*Show and run the progressBar*/
 	runProgressBar(time=700*2);	
 	
-	changeTopText(newText = "Here are all the chords for the disputes which involve the USA "+ 
-							"as issuer or respondant",
-		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
+	changeTopText(newText = "These are all the arcs for disputes involving the United States as complainant or respondent.",
+		loc = 3/2, delayDisappear = 0, delayAppear = 1, finalText = true);
 		
 	/*Remove the Nokia arc*/
 	d3.selectAll(".NokiaLoyalArc")
@@ -580,6 +579,8 @@ function Draw8(){
         .each("end", function() {d3.selectAll(".NokiaLoyalArc").remove();});
     
 
+	changeBottomText(newText = "Click \"Finish\" and hover over the border of the circle to get more details.",
+		loc = 10/4 , delayDisappear = 0, delayAppear = 1);
 			
 	/*Only show the chords of Apple*/
 	chords.transition().duration(2000)
@@ -608,6 +609,12 @@ function Draw8(){
 	svg.selectAll("g.group")
 		.transition().duration(700)
 		.selectAll(".titles").style("opacity", function(d) { if(d.index == 0) {return 1;} else {return opacityValue;}});
+
+	/*Stop the colour changing on the Nokia side*/
+	d3.selectAll(".NokiaToSamsungArc")
+		.transition().duration(700)
+		.attr("fill", colors[0])
+		.style("stroke", colors[0]);
 
 };/*Draw9*/
 
