@@ -402,7 +402,7 @@ function Draw4(){
 	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia intro text*/
-	changeTopText(newText = "Let's focus on the disputes between The United States and The European Union.",
+	changeTopText(newText = "Let's focus on the disputes between the United States and the European Union.",
 		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 		
 	/*Bottom text disappear*/
@@ -448,7 +448,7 @@ function Draw5(){
 	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia text*/
-	changeTopText(newText = "Looking at the EU's arc, we see it has initiated 2 disputes with The US.",
+	changeTopText(newText = "Looking at the EU's arc, we see it has initiated 2 disputes with the US.",
 		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 	
     /*Make the non Samsung & Nokia arcs less visible*/
