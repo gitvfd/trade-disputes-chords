@@ -247,7 +247,7 @@ var middleTextBottom = textCenter.append("text")
 //////////////////////////////////////////////////////////*/
 
 var counter = 0,
-	buttonTexts = ["Narrative", "->", "Next", "->", "Next", "->", "Next", "Finish"],
+	buttonTexts = ["Click to start", "Next", "Next", "Next", "Next", "Next", "Next", "Finish"],
 	opacityValueBase = 0.8,
 	opacityValue = 0.4;
 
@@ -358,7 +358,7 @@ function Draw2(){
 		.attr("opacity", function (d, i) { return (d.index == 0 || d.index == 1) ? 1  : 0; });
 	  
 	/*Switch  text*/
-    changeTopText(newText = "The United States is involved in the most disputes, followed by China.",
+	changeTopText(newText = "These two countries are involved into five disputes.",
 	loc = 1/2, delayDisappear = 0, delayAppear = 1, finalText = true);
 	
     changeBottomText(newText = "",
@@ -433,7 +433,7 @@ function Draw4(){
 	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia intro text*/
-	changeTopText(newText = "Let's focus on the disputes between the United States and the European Union.",
+	changeTopText(newText = "Let's focus on one dispute.",
 		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 		
 	/*Bottom text disappear*/
@@ -479,7 +479,7 @@ function Draw5(){
 	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia text*/
-	changeTopText(newText = "Looking at the EU's arc, we see it has initiated 2 disputes with the US.",
+	changeTopText(newText = "Looking at one end of the arc, we see two disputes have been initiated by this country aginst the other.",
 		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 	
     /*Make the non Samsung & Nokia arcs less visible*/
@@ -527,7 +527,7 @@ function Draw6(){
 	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia text*/
-	changeTopText(newText = "We also see that the US has only initiated one dispute with the EU. As the number of initiated disputes is greater for the EU, the arc takes the EU color.",
+	changeTopText(newText = "The other country has initiated just one dispute. The chord is the color of the country that has initiated more disputes.",
         loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 		
 	/*Stop the color changing on the Samsung side*/
@@ -579,7 +579,7 @@ function Draw8(){
 	/*Show and run the progressBar*/
 	runProgressBar(time=700*2);	
 	
-	changeTopText(newText = "These are all the arcs for disputes involving the United States as complainant or respondent.",
+	changeTopText(newText = "These are all the chords for disputes involving one country as complainant or respondent.",
 		loc = 3/2, delayDisappear = 0, delayAppear = 1, finalText = true);
 		
 	/*Remove the Nokia arc*/
