@@ -304,7 +304,7 @@ function DrawInit(){
 		.transition().duration(700)
 		.attr("opacity", 0);
 
-	changeTopText(newText = "This infographic details ongoing tariff and trade restriction complaints initiated at the WTO since 2017.",
+	changeTopText(newText = "This infographic details ongoing trade restriction complaints initiated at the WTO since 2017.",
 		loc = 1 / 2, delayDisappear = 0, delayAppear = 1, finalText = true);
 
 
