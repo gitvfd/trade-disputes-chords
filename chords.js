@@ -358,7 +358,7 @@ function Draw2(){
 		.attr("opacity", function (d, i) { return (d.index == 0 || d.index == 1) ? 1  : 0; });
 	  
 	/*Switch  text*/
-	changeTopText(newText = "These two countries are involved into five disputes.",
+	changeTopText(newText = "These two countries are involved in five disputes.",
 	loc = 1/2, delayDisappear = 0, delayAppear = 1, finalText = true);
 	
     changeBottomText(newText = "",
