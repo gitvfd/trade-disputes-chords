@@ -45,16 +45,14 @@ var colors = ['#612794','#04629a','#0bb89c','#0bb89c','#0bb89c','#90bd79', '#90b
 /*Initiate the color scale*/
 var fill = d3.scale.ordinal()
     .domain(d3.range(NameProvider.length))
-	.range(colors);
+    .range(colors);
 	
-var test = Math.min(700, window.innerWidth)
-var test2 = Math.min(500, 5 / 7 * window.innerWidth)
 /*//////////////////////////////////////////////////////////
 /////////////// Initiate Chord Diagram /////////////////////
 //////////////////////////////////////////////////////////*/
-var margin = { top: 30, right: 25, bottom: 10, left: 25 },
-	width = test - margin.left - margin.right,
-	height = test2 - margin.top - margin.bottom,
+var margin = {top: 30, right: 25, bottom: 10, left: 25},
+    width =700 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom,
     innerRadius = Math.min(width, height) * .39,
     outerRadius = innerRadius * 1.04;
 
@@ -93,7 +91,7 @@ g.append("svg:path")
 	  .attr("d", arc)
 	  .style("opacity", 0)
 	  .transition().duration(1000)
-	  .style("opacity", 1);
+	  .style("opacity", 0.4);
 
 /*//////////////////////////////////////////////////////////
 ////////////////// Initiate Ticks //////////////////////////
@@ -127,7 +125,7 @@ ticks.append("svg:text")
 	.attr("transform", function(d) { return d.angle > Math.PI ? "rotate(180)translate(-16)" : null; })
 	.style("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
 	.text(function(d) { return d.label; })
-	.attr('opacity', 1);
+	.attr('opacity', 0);
 	
 /*//////////////////////////////////////////////////////////
 ////////////////// Initiate Names //////////////////////////
@@ -143,7 +141,7 @@ g.append("svg:text")
 		+ "translate(" + (innerRadius + 35) + ")"
 		+ (d.angle > Math.PI ? "rotate(180)" : "");
   })
-  .attr('opacity', 1)
+  .attr('opacity', 0)
   .text(function(d,i) { return NameProvider[i]; });  
 
 /*//////////////////////////////////////////////////////////
@@ -157,38 +155,7 @@ var chords = svg.selectAll("path.chord")
 	.style("stroke", function (d) { return d3.rgb(fill(d.source.index)).darker(); })
 	.style("fill", function(d) { return fill(d.source.index); })
 	.attr("d", d3.svg.chord().radius(innerRadius))
-	.attr('opacity', 1);
-
-
-/*Make mouse over and out possible*/
-d3.selectAll(".group")
-	.on("mouseover", fade(.02))
-
-	.on("mousemove", function () {
-
-		//Change titles
-		d3.select("#chart-tooltip .tooltip-title").html(this.className.baseVal.slice(6, this.className.baseVal.length))
-
-		//Place & show the tooltip
-		d3.select("#chart-tooltip")
-			.style("top", (event.clientY - 5 + "px"))
-			.style("left", (event.clientX + 5 + "px"))
-			.style("opacity", 1)
-
-
-	})
-	.on("mouseout", function () {
-		d3.select("#chart-tooltip")
-			.style("top", (event.clientY - 5 + "px"))
-			.style("left", (event.clientX + 5 + "px"))
-			.style("opacity", 0);
-
-		svg.selectAll("path.chord")
-			.transition()
-			.style("stroke-opacity", 0.8)
-			.style("fill-opacity", 0.8);
-	});
-
+	.attr('opacity', 0);
 
 /*//////////////////////////////////////////////////////////	
 ///////////// Initiate Progress Bar ////////////////////////
@@ -229,7 +196,7 @@ var middleTextTop = textCenter.append("text")
 	.attr("y", -12*10/2 + "px")
 	.attr("dy", "1em")
 	.attr("opacity", 1)
-	.text("")
+	.text("This infographic presents a breakdown of outstanding tariff and trade restriction complaints to the WTO since 2017.")
 	.call(wrap, 225);
 
 /*Starting text middle bottom*/
@@ -248,8 +215,8 @@ var middleTextBottom = textCenter.append("text")
 //////////////// Storyboarding Steps ///////////////////////
 //////////////////////////////////////////////////////////*/
 
-var counter = 0,
-	buttonTexts = ["Click to start", "Next", "Next", "Next", "Finish"],
+var counter = 1,
+	buttonTexts = ["->", "Next", "->", "Next", "->", "Finish"],
 	opacityValueBase = 0.8,
 	opacityValue = 0.4;
 
@@ -264,53 +231,53 @@ d3.select("#skip")
 /*Order of steps when clicking button*/
 d3.select("#clicker")      
 	.on("click", function(e){
-		if (counter == 0) DrawInit();
-		else if(counter == 1) Draw2(); // intro explanation
+	
+		if(counter == 1) Draw2(); // intro explanation
 		else if(counter == 2) Draw3(); // OK -- drawing one line ie US
-       // else if (counter == 3) Draw4(); // OK -- Drawing all the other lines
-        //else if (counter == 4) Draw5(); // OK -- highlighting one arc
-        //else if (counter == 5) Draw6(); // OK -- explaining one end of the highlighted arc
-        else if (counter == 3) Draw8(); // OK -- explaining second end of the highlighted arc
-		else if (counter == 4) finalChord(); // OK -- overall arc explanation
+        else if (counter == 3) Draw4(); // OK -- Drawing all the other lines
+        else if (counter == 4) Draw5(); // OK -- highlighting one arc
+        else if (counter == 5) Draw6(); // OK -- explaining one end of the highlighted arc
+        else if (counter == 6) Draw8(); // OK -- explaining second end of the highlighted arc
+		else if (counter == 7) finalChord(); // OK -- overall arc explanation
+		//else if (counter == 8) finalChord(); // OK -- all the chords for one segement
+		//else if (counter == 9) finalChord(); // OK -- showing that apple is leader for all its connection
+         //else if (counter == 10) finalChord(); // OK -- all
 		
 		counter = counter + 1;
 	});
 
-/*//////////////////////////////////////////////////////////
-//Initiate
+/*//////////////////////////////////////////////////////////	
+//Introduction
 ///////////////////////////////////////////////////////////*/
-function DrawInit(){
-
+function Draw1(){
 
 	/*First disable click event on clicker button*/
 	stopClicker();
+		
+	/*Show and run the progressBar*/
+	runProgressBar(time=700*2);
+		
+/** 	changeTopText(newText = "These days most people switch phones every few years. " + 
+							"Some people stay loyal, but many also switch to a different phone brand...",
+	loc = 4/2, delayDisappear = 0, delayAppear = 1);**/
 
-	d3.selectAll(".arc").transition().duration(700)
-		.style("opacity", 0.4)
-
-	d3.selectAll("g.group").selectAll("line")
-		.transition().delay(700).duration(1000)
-		.style("opacity",0);
-
-	/*Add the labels for the %'s at Apple*/
-	d3.selectAll("g.group").selectAll(".tickLabels")
-		.transition().duration(700)
-		.attr("opacity", 0);
-
-	/*Show the Apple name*/
-	d3.selectAll(".titles")
-		.transition().duration(700)
-		.attr("opacity", 0);
-
-	svg.selectAll(".chord")
-		.transition().duration(700)
-		.attr("opacity", 0);
-
-	changeTopText(newText = "This infographic details ongoing trade restriction complaints initiated at the WTO since 2017.",
-		loc = 1 / 2, delayDisappear = 0, delayAppear = 1, finalText = true);
+	changeTopText(newText = "In the next few steps, we will present which countries started disputes over the last 2 years and who they were targeting",
+	loc = 8/2, delayDisappear = 0, delayAppear = 1, finalText = true);
 
 
-};/*DrawInit*/
+	changeBottomText(newText = "",
+		loc = 8 / 2, delayDisappear = 0, delayAppear = 1, finalText = true);
+	
+	/**changeBottomText(newText = "Let's start by drawing out the division of the 1846 respondents, that have had at least 2 phones, among the biggest 7 brands ",
+	loc = 1/2, delayDisappear = 0, delayAppear = 10);*/
+	
+	//Remove arcs again
+	d3.selectAll(".arc")
+		.transition().delay(1*700).duration(700)
+		.style("opacity", 0)
+		.each("end", function() {d3.selectAll(".arc").remove();});
+		
+};/*Draw1*/
 
 /*//////////////////////////////////////////////////////////	
 //Show Arc of Apple
@@ -360,7 +327,7 @@ function Draw2(){
 		.attr("opacity", function (d, i) { return (d.index == 0 || d.index == 1) ? 1  : 0; });
 	  
 	/*Switch  text*/
-	changeTopText(newText = "Two countries have initiated five disputes.",
+    changeTopText(newText = "The United States is involved in the most disputes, followed by China.",
 	loc = 1/2, delayDisappear = 0, delayAppear = 1, finalText = true);
 	
     changeBottomText(newText = "",
@@ -413,7 +380,7 @@ function Draw3(){
 	changeTopText(newText = "Other countries have initiated between one and four disputes.",
         loc = 1/2, delayDisappear = 0, delayAppear = 1);
 	/*0 disputes*/
-	changeTopText(newText = "Eight countries that are responding to disputes have not initiated disputes themselves.",
+	changeTopText(newText = "Eight countries are just responding to disputes but have not issued any.",
 		loc = 1 / 2, delayDisappear = (arcDelay[22] - 1), delayAppear = arcDelay[22], finalText = true);
     /*0 dispute%*/
     //changeTopText(newText = "8 countries are just responding to disputes but haven't issued any",
@@ -435,7 +402,7 @@ function Draw4(){
 	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia intro text*/
-	changeTopText(newText = "Let's focus on one dispute.",
+	changeTopText(newText = "Let's focus on the disputes between the United States and the European Union.",
 		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 		
 	/*Bottom text disappear*/
@@ -481,7 +448,7 @@ function Draw5(){
 	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia text*/
-	changeTopText(newText = "Looking at one end of the arc, we see two disputes have been initiated by this country aginst the other.",
+	changeTopText(newText = "Looking at the EU's arc, we see it has initiated 2 disputes with the US.",
 		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 	
     /*Make the non Samsung & Nokia arcs less visible*/
@@ -529,7 +496,7 @@ function Draw6(){
 	runProgressBar(time=700*2);	
 	
 	/*Samsung and Nokia text*/
-	changeTopText(newText = "The other country has initiated just one dispute. The chord is the color of the country that has initiated more disputes.",
+	changeTopText(newText = "We also see that the US has only initiated one dispute with the EU. As the number of initiated disputes is greater for the EU, the arc takes the EU color.",
         loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
 		
 	/*Stop the color changing on the Samsung side*/
@@ -569,6 +536,27 @@ function Draw6(){
 				
 };/*Draw7*/
 
+/*//////////////////////////////////////////////////////////////////////////*/
+function Draw7(){
+
+	/*First disable click event on clicker button*/
+	stopClicker();
+	/*Show and run the progressBar*/
+	runProgressBar(time=700*2);	
+	
+	/*Samsung and Nokia text*/
+	changeTopText(newText = "As the EU has initiated more disputes against the USA than the USA against the EU, the chord is the color of the EU",
+		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
+	/**changeTopText(newText = "",
+		loc = 0, delayDisappear = 6, delayAppear = 7, finalText = true);**/
+		
+	/*Stop the colour changing on the Nokia side*/
+	d3.selectAll(".NokiaToSamsungArc")
+		.transition().duration(700)
+		.attr("fill", colors[0])
+		.style("stroke", colors[0]);
+				
+};/*Draw8*/
 
 
 /*//////////////////////////////////////////////////////////
@@ -581,8 +569,8 @@ function Draw8(){
 	/*Show and run the progressBar*/
 	runProgressBar(time=700*2);	
 	
-	changeTopText(newText = "In bilateral disputes, the ribbon takes the colour of the country that has initiated more of the  disputes.",
-		loc = 2/2, delayDisappear = 0, delayAppear = 1, finalText = true);
+	changeTopText(newText = "These are all the arcs for disputes involving the United States as complainant or respondent.",
+		loc = 3/2, delayDisappear = 0, delayAppear = 1, finalText = true);
 		
 	/*Remove the Nokia arc*/
 	d3.selectAll(".NokiaLoyalArc")
@@ -591,7 +579,7 @@ function Draw8(){
         .each("end", function() {d3.selectAll(".NokiaLoyalArc").remove();});
     
 
-	changeBottomText(newText = "Click \"Finish\"  and hover over the border of the circle to see country-by-country details.",
+	changeBottomText(newText = "Click \"Finish\" and hover over the border of the circle to get more details.",
 		loc = 10/4 , delayDisappear = 0, delayAppear = 1);
 			
 	/*Only show the chords of Apple*/
@@ -630,14 +618,29 @@ function Draw8(){
 
 };/*Draw9*/
 
- 
+function Draw9(){
+
+	/*First disable click event on clicker button*/
+	stopClicker();
+	/*Show and run the progressBar*/
+	runProgressBar(time=700*2);	
+
+	changeTopText(newText = "Most of the chord connected to the USA are not their color, highlighting the fact that they issue less disputes against other countries " + 
+							"than they receive ",
+		loc = 0, delayDisappear = 0, delayAppear = 1, finalText = true);
+	/**changeTopText(newText = "we can conclude that the USA issue less disputes against other countries " + 
+							"than they receive",
+		loc = 3/2, delayDisappear = 9, delayAppear = 10, finalText = true, xloc=-80, w=210);**/
+
+};/*Draw10*/
+  
 
 /*///////////////////////////////////////////////////////////
 //Draw the original Chord diagram
 ///////////////////////////////////////////////////////////*/
 /*Go to the final bit*/
 function finalChord() {
-	/*counter=-1;*/
+	
 	/*Remove button*/
 	d3.select("#clicker")
 		.style("visibility", "hidden");
@@ -802,9 +805,8 @@ function changeTopText (newText, loc, delayDisappear, delayAppear, finalText, xl
 		.attr('opacity', 1)
 		.call(endall,  function() {
 			if (finalText == true) {
-
 				d3.select("#clicker")
-					.text(buttonTexts[counter])
+					.text(buttonTexts[counter-2])
 					.style("pointer-events", "auto")
 					.transition().duration(400)
 					.style("border-color", "#363636")
